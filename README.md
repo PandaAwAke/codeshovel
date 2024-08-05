@@ -5,12 +5,63 @@ Take this shovel to dig in source code history for changes to specific methods a
 *This is research!* Primarily undertaken in the [Software Practices Lab](https://spl.cs.ubc.ca) at UBC in Vancouver, Canada we have developed this project to help practitioners to more efficiently check how their methods have changed and give researchers an easier way to track method evolution for academic studies. Please do not hesitate to get in touch if you have any questions!
 
 
-## 复现
+## 复现说明
 
-本仓库复现 CodeShovel 在本地化运行（并带有 Web UI）
+本仓库复现 CodeShovel 在本地化运行（并带有 Web UI）。
 
-两个项目的 docker 已经定制化修改以能够成功运行
+两个项目的 docker 已经定制化修改以能够成功运行。
 
+需要构建和运行需要如下操作：
+- 修改 .env 文件，构建时需要（修改后也需要重新构建）
+- docker compose build，它会重定向到 webservice 子项目
+- docker compose up
+- 访问 http://localhost:8080
+
+### webservice 项目复现说明
+
+此项目 docker 会创建一个 Springboot 后端 + React 前端，http://localhost:8080 即可访问。
+
+它通过 .env 文件的设定来构建，代码逻辑是直接调用 CodeShovel 接口进行分析。
+
+**可以通过观察 webservice 对 CodeShovel 的使用来进行学习**。
+
+#### maven 说明
+- webservice 项目里加了 maven 依赖：
+```xml
+<dependency>
+	<groupId>com.github.ataraxie</groupId>
+	<artifactId>codeshovel</artifactId>
+	<version>webservice-repair-3749882912-1</version>
+</dependency>
+```
+而且它在 repository 中设定了 jitpack.io，该项目会直接从这里下载某个版本的 CodeShovel 实现，并进行调用。
+
+
+### CodeShovel 项目复现说明
+
+#### maven 说明
+CodeShovel 正在实现 Python 等语言的支持。
+
+观察 pom.xml 可知，需要从 https://github.com/antlr/grammars-v4 项目的特定 commit (目前为 8803cbe8aca1b3b6ebf73e13f5c41665f393b381)
+下的 python 文件夹下载：
+
+- 2 个 g4 文件到 src/main/antlr4/PythonParseTree/
+  - PythonLexer.g4：https://github.com/antlr/grammars-v4/blob/8803cbe8aca1b3b6ebf73e13f5c41665f393b381/python/PythonLexer.g4
+  - PythonParser.g4：https://github.com/antlr/grammars-v4/blob/8803cbe8aca1b3b6ebf73e13f5c41665f393b381/python/PythonParser.g4
+
+- 3 个 java 文件到 src/main/java/PythonParseTree/
+  - PythonLexerBase.java：https://github.com/antlr/grammars-v4/blob/8803cbe8aca1b3b6ebf73e13f5c41665f393b381/python/Java/PythonLexerBase.java
+  - PythonParserBase.java：https://github.com/antlr/grammars-v4/blob/8803cbe8aca1b3b6ebf73e13f5c41665f393b381/python/Java/PythonParserBase.java
+  - PythonVersion.java：https://github.com/antlr/grammars-v4/blob/8803cbe8aca1b3b6ebf73e13f5c41665f393b381/python/Java/PythonVersion.java
+
+上述下载操作会在 generate-sources 阶段进行。由于访问有些不明问题，
+我直接把文件下载好放到了对应文件夹内，然后添加到 git，把 pom.xml 对应内容给注释了。
+
+两个 g4 文件将被 pom 中的 antlr4 插件执行源码生成。在 maven 生成源代码并更新文件夹即可。
+
+另外该 pom 不知道是什么原因还需要安装前端相关内容和 node，我直接注释掉了。
+
+最后，执行 mvn -DskipTests=true package 即可在 target/archive-tmp/ 下生成 jar。
 
 
 ### Publication
