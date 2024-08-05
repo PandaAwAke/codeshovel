@@ -11,16 +11,16 @@
 		<antlr.repo.sha>8803cbe8aca1b3b6ebf73e13f5c41665f393b381</antlr.repo.sha>
 		<j2v8.artifactId>j2v8_macosx_x86_64</j2v8.artifactId>
 	</properties>
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>Maven Central Repository</name>
-			<url>https://repo1.maven.org/maven2</url>
-		</repository>
-	</repositories>
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<snapshots>-->
+<!--				<enabled>false</enabled>-->
+<!--			</snapshots>-->
+<!--			<id>central</id>-->
+<!--			<name>Maven Central Repository</name>-->
+<!--			<url>https://repo1.maven.org/maven2</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

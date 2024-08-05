@@ -4,6 +4,15 @@ Take this shovel to dig in source code history for changes to specific methods a
 
 *This is research!* Primarily undertaken in the [Software Practices Lab](https://spl.cs.ubc.ca) at UBC in Vancouver, Canada we have developed this project to help practitioners to more efficiently check how their methods have changed and give researchers an easier way to track method evolution for academic studies. Please do not hesitate to get in touch if you have any questions!
 
+
+## 复现
+
+本仓库复现 CodeShovel 在本地化运行（并带有 Web UI）
+
+两个项目的 docker 已经定制化修改以能够成功运行
+
+
+
 ### Publication
 
 A conference paper describing how CodeShovel works and how it was evaluated as been accepted for publication at the International Conference on Software Engineering 2021. A free version of the paper can be found [here](https://www.cs.ubc.ca/~rtholmes/papers/icse_2021_grund.pdf). If you use CodeShovel in an academic paper, please cite:

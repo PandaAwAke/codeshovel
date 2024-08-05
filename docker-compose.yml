@@ -1,12 +1,12 @@
 version: "3.5"
 
 services:
-  codeshovel:
+  codeshovel-web:
     build:
       args:
         - "SERVER_ADDRESS=${PUBLICHOSTNAME}"
         - "PUBLIC_ADDRESS=${PUBLICHOSTNAME}"
-      context: https://${GITHUB_TOKEN}@github.com/braxtonhall/codeshovel-webservice.git
+      context: ./codeshovel-webservice
     expose:
       - 8080
     restart: always
